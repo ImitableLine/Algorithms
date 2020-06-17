@@ -1,0 +1,51 @@
+data = [2, 4, 5, 7, 8, 9, 12, 14, 17, 19, 22, 25, 27, 28, 33, 37]
+target = 22
+
+
+# linear Search practice/example
+def linear_search(data, target):
+    for i in range(len(data)):
+        if data[i] == target:
+            return True
+    else:
+        return False
+
+
+# iterative Binary Search
+def binary_search_iterative(data, target):
+    data.sort()
+    low = 0
+    high = len(
+        data) - 1  # the len of data is one more than the last index of data, this is because of zero index,
+    # so the -1 just gives the last index of the array 
+
+    while low <= high:
+        mid = (low + high) // 2
+        if target == data[mid]:
+            return True
+        elif target < data[mid]:
+            high = mid - 1  # This says is the target is less than, throw away the other part of the list,
+            # as you wont need it.
+        else:
+            low = mid + 1  # this throws away the other half if the number is higher!
+    return False
+
+
+# Recursive Binary Search
+def binary_search_recursive(data, target, low, high):
+    if low > high:
+        return False
+    else:
+        mid = (low + high) // 2
+        if target == data[mid]:
+            return True
+        elif target < data[mid]:
+            return binary_search_recursive(data, target, low,
+                                           mid - 1)  # The high point has been replaced with mid -1, just like above
+            # this is throwing away the top half of the array
+        else:
+            return binary_search_recursive(data, target, low + 1, high)  # again just throwing away half not used.
+
+
+print(binary_search_iterative(data, target))
+print(binary_search_recursive(data, target, 0, len(data) - 1))
